@@ -43,12 +43,14 @@ public class Main {
         commandsSubmenu.put(1, () -> pvpGame());
         commandsSubmenu.put(2, () -> pvcGame());
         commandsSubmenu.put(3, () -> cvcGame());
-        commandsSubmenu.put(4, () -> exitGame());
+        commandsSubmenu.put(4, () -> backToMain());
         commandsSubmenu.get(intChoice).run();
     }
 
     private static void pvpGame() {
         System.out.println("PVP Game");
+        Ocean board = new Ocean(10);
+        System.out.println(board);
         stringChoice = Common.getUserStringChoice("Do you want play again[y/n]");
         if (stringChoice.equalsIgnoreCase("y")) {
             keepGoing = true;
@@ -59,6 +61,8 @@ public class Main {
 
     private static void pvcGame() {
         System.out.println("PVC Game");
+        Ocean board = new Ocean(10);
+        System.out.println(board);
         stringChoice = Common.getUserStringChoice("Do you want play again[y/n]");
         if (stringChoice.equalsIgnoreCase("y")) {
             keepGoing = true;
@@ -69,6 +73,8 @@ public class Main {
 
     private static void cvcGame() {
         System.out.println("CVC Game");
+        Ocean board = new Ocean(10);
+        System.out.println(board);
         stringChoice = Common.getUserStringChoice("Do you want play again[y/n]");
         if (stringChoice.equalsIgnoreCase("y")) {
             keepGoing = true;
@@ -77,6 +83,10 @@ public class Main {
         }
     }
 
+    public static void backToMain(){
+        keepGoing = true;
+    }
+    
     public static void exitGame() {
         keepGoing = false;
     }

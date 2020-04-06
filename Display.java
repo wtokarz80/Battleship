@@ -27,7 +27,7 @@ public class Display {
 
    public static void about(){
 
-      Engine.clearScreen();
+      Common.clearScreen();
       
       System.out.println("\n    Battleship (or Sea Battle[1]) is a strategy type guessing game for two players.\n"
       + "It is played on ruled grids (paper or board) on which each player's fleet of ships\n"
@@ -52,7 +52,7 @@ public class Display {
                         + "| 1 - Player vs Player     |\n"
                         + "| 2 - Player vs Computer   |\n"
                         + "| 3 - Computer vs Computer |\n"
-                        + "| 4 - Exit game            |\n"
+                        + "| 4 - Back to main menu    |\n"
                         + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
    }
 }
