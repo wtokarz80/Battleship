@@ -38,7 +38,7 @@ public class Ocean {
 
     public boolean matchTable(Ship newShip) {
         if (newShip.getOrientation().equals("H")) {
-            if (newShip.getPosX() + newShip.getLength() < oceanSize && isAllowed(newShip, newShip.getOrientation())) {
+            if (newShip.getPosX() + newShip.getLength() < oceanSize && isAllowed(newShip, "H")) {
                 for (int i = newShip.getPosX(); i < newShip.getPosX() + newShip.getLength(); i++) {
                     getOceanBoard()[newShip.getPosY()][i].setStatus("SHIP");
                     Square field = getSquare(newShip.getPosY(), i);
@@ -49,7 +49,7 @@ public class Ocean {
             return true;
 
         } else if (newShip.getOrientation().equals("V")) {
-            if (newShip.getPosY() + newShip.getLength() < oceanSize && isAllowed(newShip, newShip.getOrientation())) {
+            if (newShip.getPosY() + newShip.getLength() < oceanSize && isAllowed(newShip, "V")) {
                 for (int i = newShip.getPosY(); i < newShip.getPosY() + newShip.getLength(); i++) {
                     getOceanBoard()[i][newShip.getPosX()].setStatus("SHIP");
                     Square field = getSquare(i, newShip.getPosX());
@@ -64,13 +64,13 @@ public class Ocean {
     }
 
     public boolean isAllowed(Ship newShip, String orientation) {
-        if (orientation == "H") {
+        if (orientation.equalsIgnoreCase("H")) {
             for (int i = newShip.getPosX(); i < newShip.getPosX() + newShip.getLength(); i++) {
                 if (allowedSquares.contains(getOceanBoard()[newShip.getPosY()][i])) {
                     return true;
                 }
             }
-        } else if (orientation == "V") {
+        } else if (orientation.equalsIgnoreCase("V")) {
             for (int i = newShip.getPosY(); i < newShip.getPosY() + newShip.getLength(); i++) {
                 if (allowedSquares.contains(getOceanBoard()[i][newShip.getPosX()])) {
                     return true;
