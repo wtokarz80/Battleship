@@ -74,6 +74,7 @@ public class Player {
                     System.out.println("The ships must fit on board and may not touch each other.");
                 } else {
                     getPlayerShips().add(newShip);
+                    System.out.println(playerBoard.toString());
                 }
             }
         }
