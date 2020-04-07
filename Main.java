@@ -51,6 +51,9 @@ public class Main {
         System.out.println("PVP Game");
         Ocean board = new Ocean(10);
         System.out.println(board);
+
+        Fixinput.convert(Fixinput.validInput, Fixinput.alphabet, Fixinput.numbers);
+
         stringChoice = Common.getUserStringChoice("Do you want play again[y/n]");
         if (stringChoice.equalsIgnoreCase("y")) {
             keepGoing = true;
