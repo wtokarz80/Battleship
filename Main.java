@@ -48,9 +48,6 @@ public class Main {
     }
 
     public static void pvpGame() {
-        // System.out.println("PVP Game");
-        // Ocean board = new Ocean(10);
-        // System.out.println(board);
         Engine newGame = new Engine(true, true);
         newGame.getPlayerOne();
         stringChoice = Common.getUserStringChoice("Do you want play again[y/n]");

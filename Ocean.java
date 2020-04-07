@@ -38,46 +38,48 @@ public class Ocean {
 
     public boolean matchTable(Ship newShip) {
         if (newShip.getOrientation().equals("H")) {
-            if (newShip.getPosX() + newShip.getLength() < oceanSize && isAllowed(newShip, "H")) {
+            if (newShip.getPosX() + newShip.getLength() <= oceanSize && isAllowed(newShip, "H")) {
                 for (int i = newShip.getPosX(); i < newShip.getPosX() + newShip.getLength(); i++) {
                     getOceanBoard()[newShip.getPosY()][i].setStatus("SHIP");
                     Square field = getSquare(newShip.getPosY(), i);
                     newShip.addSquareToList(field);
                     allowedSquares.remove(field);
                 }
+                return true;
+
             }
-            return true;
 
         } else if (newShip.getOrientation().equals("V")) {
-            if (newShip.getPosY() + newShip.getLength() < oceanSize && isAllowed(newShip, "V")) {
+            if (newShip.getPosY() + newShip.getLength() <= oceanSize && isAllowed(newShip, "V")) {
                 for (int i = newShip.getPosY(); i < newShip.getPosY() + newShip.getLength(); i++) {
                     getOceanBoard()[i][newShip.getPosX()].setStatus("SHIP");
                     Square field = getSquare(i, newShip.getPosX());
                     newShip.addSquareToList(field);
                     allowedSquares.remove(field);
                 }
-            }
-            return true;
-        }
+                return true;
 
+            }
+        }
         return false;
+
     }
 
     public boolean isAllowed(Ship newShip, String orientation) {
         if (orientation.equalsIgnoreCase("H")) {
             for (int i = newShip.getPosX(); i < newShip.getPosX() + newShip.getLength(); i++) {
-                if (allowedSquares.contains(getOceanBoard()[newShip.getPosY()][i])) {
-                    return true;
+                if (!allowedSquares.contains(getOceanBoard()[newShip.getPosY()][i])) {
+                    return false;
                 }
             }
         } else if (orientation.equalsIgnoreCase("V")) {
             for (int i = newShip.getPosY(); i < newShip.getPosY() + newShip.getLength(); i++) {
-                if (allowedSquares.contains(getOceanBoard()[i][newShip.getPosX()])) {
-                    return true;
+                if (!allowedSquares.contains(getOceanBoard()[i][newShip.getPosX()])) {
+                    return false;
                 }
             }
         }
-        return false;
+        return true;
     }
 
     public String toString() {

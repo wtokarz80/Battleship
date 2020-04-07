@@ -10,7 +10,7 @@ public class Engine {
 
     Engine (boolean isHuman1, boolean isHuman2) {
         this.player1 = new Player(isHuman1);
-        this.player2 = new Player(isHuman2);
+        // this.player2 = new Player(isHuman2);
     }
     public Player getPlayerOne() {
         return this.player1;

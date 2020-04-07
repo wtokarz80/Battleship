@@ -69,17 +69,16 @@ public class Player {
                 int posX = userNumber - 1;
                 int length = shipsList.get(key);
                 newShip = new Ship(length, orientation, posX, posY, key);
-                isOk = playerBoard.matchTable(newShip);
-                if (!isOk) {
+                boolean keepGoing = playerBoard.matchTable(newShip);
+                if (!keepGoing) {
                     System.out.println("The ships must fit on board and may not touch each other.");
                 } else {
                     getPlayerShips().add(newShip);
                     System.out.println(playerBoard.toString());
+                    isOk = true;
                 }
             }
         }
-
-        System.out.println(playerBoard.toString());
         return playerBoard;
     }
 
