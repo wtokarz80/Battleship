@@ -3,7 +3,6 @@ import java.util.Map;
 
 public class Square {
 
-    private static final String Map = null;
     private String status;
     private boolean isAvailable;
     private int posX;
@@ -19,6 +18,8 @@ public class Square {
     public boolean getIsAwailable(){
         return this.isAvailable;
     }
+
+
 
     public void setUnAvailable(){
         this.isAvailable = false;

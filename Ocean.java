@@ -5,11 +5,12 @@ public class Ocean {
     private int oceanSize;
     private Square[][] oceanBoard;
     private List<Square> shipSquaresList;
-    private List<Square> allSquaresList;
+    private List<Square> allowedSquares;
+    private List<Square> forbiddenSquares;
 
     Ocean(int oceanSize){
         this.oceanSize = oceanSize;
-        this.allSquaresList = new ArrayList<>();
+        this.allowedSquares = new ArrayList<>();
         this.shipSquaresList = new ArrayList<>();
         this.oceanBoard = createOceanBoard(oceanSize);
     }
@@ -20,11 +21,63 @@ public class Ocean {
             for(int j = 0; j < oceanSize; j++){
                 Square field = new Square(i, j);
                 oceanBoard[i][j] = field;
-                allSquaresList.add(field);
+                allowedSquares.add(field);
             }
         }
         
         return oceanBoard;
+    }
+
+    public Square[][] getOceanBoard(){
+        return this.oceanBoard;
+    }
+
+    public Square getSquare(int posY, int posX){
+        return this.getOceanBoard()[posY][posX];
+    }
+
+    public boolean matchTable(Ship newShip){
+        if(newShip.getOrientation().equals("H")){
+            if(newShip.getPosX() + newShip.getLength() < oceanSize && isAllowed(newShip, newShip.getOrientation())){
+                for(int i = newShip.getPosX(); i < newShip.getPosX() + newShip.getLength(); i++){
+                    getOceanBoard()[newShip.getPosY()][i].setStatus("SHIP");
+                    Square field = getSquare(newShip.getPosY(), i);
+                    newShip.addSquareToList(field);
+                    allowedSquares.remove(field);
+                }
+            }
+        }
+        else if(newShip.getOrientation().equals("V")){
+            if(newShip.getPosY() + newShip.getLength() < oceanSize && isAllowed(newShip, newShip.getOrientation())){
+                for(int i = newShip.getPosY(); i < newShip.getPosY() + newShip.getLength(); i++){
+                    getOceanBoard()[i][newShip.getPosX()].setStatus("SHIP");
+                    Square field = getSquare(i, newShip.getPosX());
+                    newShip.addSquareToList(field);
+                    allowedSquares.remove(field);
+                }
+            }
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean isAllowed(Ship newShip, String orientation){
+        if(orientation == "H"){
+            for(int i = newShip.getPosX(); i < newShip.getPosX() + newShip.getLength(); i++){
+                if(allowedSquares.contains(getOceanBoard()[newShip.getPosY()][i])){
+                    return true;
+                }
+            }        
+        }
+        else if(orientation == "V"){
+            for(int i = newShip.getPosY(); i < newShip.getPosY() + newShip.getLength(); i++){
+                if(allowedSquares.contains(getOceanBoard()[i][newShip.getPosX()])){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public String toString(){
