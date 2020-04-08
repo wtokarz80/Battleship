@@ -19,8 +19,6 @@ public class Square {
         return this.isAvailable;
     }
 
-
-
     public void setUnAvailable(){
         this.isAvailable = false;
     }

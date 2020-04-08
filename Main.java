@@ -50,6 +50,7 @@ public class Main {
     public static void pvpGame() {
         Engine newGame = new Engine(true, true);
         newGame.getPlayerOne();
+        // newGame.getPlayerTwo();
         stringChoice = Common.getUserStringChoice("Do you want play again[y/n]");
         if (stringChoice.equalsIgnoreCase("y")) {
             keepGoing = true;

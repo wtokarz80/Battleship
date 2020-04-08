@@ -61,7 +61,7 @@ public class Player {
                 System.out.println(playerBoard);
                 System.out.printf("Set on the %s on your board, ship's length is %s\n", key, shipsList.get(key));
                 String orientation = Common
-                        .getOrientation("Enter [h] for horizontal or [v] for vertical ship's orientation.");
+                        .getOrientation("Enter [h] for horizontal or [v] for vertical ship orientation.");
                 String userPosition = Common.getUserPosition("Enter starting position, for example G4.");
                 char userLetter = userPosition.charAt(0);
                 int userNumber = Integer.parseInt(userPosition.substring(1));
@@ -74,7 +74,7 @@ public class Player {
                     System.out.println("The ships must fit on board and may not touch each other.");
                 } else {
                     getPlayerShips().add(newShip);
-                    System.out.println(playerBoard.toString());
+                    System.out.println(playerBoard);
                     isOk = true;
                 }
             }
