@@ -14,9 +14,16 @@ public class Player {
 
     Player(boolean isHuman) {
         this.isHuman = isHuman;
-        this.playerName = createPlayerName();
         this.shipsList = makeShipsList();
-        this.playerBoard = createPlayerBoard();
+        this.shotsBoard = new Ocean(10);
+        if (isHuman) {
+            this.playerName = createPlayerName();
+            this.playerBoard = chooseBoard();
+        }
+        else{
+            this.playerName = createComputerName();
+            this.playerBoard = createComputerBoard();
+        }
     }
 
     public Map<String, Integer> makeShipsList() {
@@ -44,9 +51,23 @@ public class Player {
         playerName = Common.getUserStringChoice("Enter your name: " + "\n");
         return playerName;
     }
+    public String createComputerName() {
+        playerName = Common.getUserStringChoice("Enter computer name: " + "\n");
+        return playerName;
+    }
 
-    public Ocean getPlayerBoard(){
+    public Ocean getPlayerBoard() {
         return this.playerBoard;
+    }
+
+    public Ocean chooseBoard(){
+        String choice = Common.getChoiceBoard("Enter [r] for random ships set or [m] for manual ships set.");
+        if(choice.equalsIgnoreCase("R")){
+            return createComputerBoard();
+        }
+        else{
+            return createPlayerBoard();
+        }
     }
 
     private Ocean createPlayerBoard() {
@@ -74,11 +95,43 @@ public class Player {
                     System.out.println("The ships must fit on board and may not touch each other.");
                 } else {
                     getPlayerShips().add(newShip);
-                    System.out.println(playerBoard);
                     isOk = true;
                 }
             }
         }
+        System.out.println(playerBoard);
+        System.out.println("Press enter to countinue.");
+        Main.scan.next();
+        Common.clearScreen();
+        return playerBoard;
+    }
+
+    private Ocean createComputerBoard() {
+        int oceanSize = 10;
+        playerShips = new ArrayList<>();
+        System.out.println("Hello " + playerName + "\n");
+        Ocean playerBoard = new Ocean(oceanSize);
+        for (String key : shipsList.keySet()) {
+            boolean isOk = false;
+            Ship newShip;
+            while (!isOk) {
+                String computerOrientation = Common.getRandomNumber(10) < 5 ? "H" : "V";
+                int posY = Common.getRandomNumber(10);
+                int posX = Common.getRandomNumber(10);
+                int length = shipsList.get(key);
+                newShip = new Ship(length, computerOrientation, posX, posY, key);
+                boolean keepGoing = playerBoard.matchTable(newShip);
+                if (keepGoing) {
+                    getPlayerShips().add(newShip);
+                    isOk = true;
+                }
+
+            }
+        }
+        System.out.println(playerBoard);
+        System.out.println("Press enter to countinue.");
+        Main.scan.next();
+        Common.clearScreen();
         return playerBoard;
     }
 

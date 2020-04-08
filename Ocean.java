@@ -43,11 +43,9 @@ public class Ocean {
                     getOceanBoard()[newShip.getPosY()][i].setStatus("SHIP");
                     Square field = getSquare(newShip.getPosY(), i);
                     newShip.addSquareToList(field);
-                    // allowedSquares.remove(field);
-                    allowedSquares = removeSquares(allowedSquares, newShip, "H");
+                    allowedSquares = removeSquares(allowedSquares, newShip);
                 }
                 return true;
-
             }
 
         } else if (newShip.getOrientation().equals("V")) {
@@ -56,18 +54,16 @@ public class Ocean {
                     getOceanBoard()[i][newShip.getPosX()].setStatus("SHIP");
                     Square field = getSquare(i, newShip.getPosX());
                     newShip.addSquareToList(field);
-                    // allowedSquares.remove(field);
-                    allowedSquares = removeSquares(allowedSquares, newShip, "V");
+                    allowedSquares = removeSquares(allowedSquares, newShip);
                 }
                 return true;
-
             }
         }
         return false;
 
     }
 
-    public List<Square> removeSquares(List<Square> allowedSquares, Ship newShip, String orientation) {
+    public List<Square> removeSquares(List<Square> allowedSquares, Ship newShip) {
 
         for(Square element : newShip.getListOfFields()){
             for (int i = -1; i < 2; i++){
