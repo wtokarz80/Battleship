@@ -49,9 +49,10 @@ public class Main {
 
     public static void pvpGame() {
         Engine newGame = new Engine(true, true);
-        newGame.getPlayerOne();
-        newGame.getPlayerTwo();
-        newGame.shooting();
+        Player first = newGame.getPlayerOne();
+        Player secound = newGame.getPlayerTwo();
+        newGame.shooting(first, secound);
+        newGame.shooting(secound, first);
         
         stringChoice = Common.getUserStringChoice("Do you want play again[y/n]");
         if (stringChoice.equalsIgnoreCase("y")) {
