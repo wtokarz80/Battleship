@@ -51,8 +51,11 @@ public class Main {
         Engine newGame = new Engine(true, true);
         Player first = newGame.getPlayerOne();
         Player secound = newGame.getPlayerTwo();
-        newGame.shooting(first, secound);
-        newGame.shooting(secound, first);
+        while (!newGame.isWinning(first)  ||  !newGame.isWinning(secound)){
+            newGame.shooting(first, secound);
+            newGame.shooting(secound, first);
+        }
+        
         
         stringChoice = Common.getUserStringChoice("Do you want play again[y/n]");
         if (stringChoice.equalsIgnoreCase("y")) {
