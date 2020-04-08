@@ -22,9 +22,9 @@ public class Player {
 
     public Map<String, Integer> makeShipsList() {
         shipsList = new HashMap<>();
-        shipsList.put("Carrier", 5);
-        shipsList.put("Battleship", 4);
-        shipsList.put("Cruiser", 3);
+   //     shipsList.put("Carrier", 5);
+   //     shipsList.put("Battleship", 4);
+   //     shipsList.put("Cruiser", 3);
         shipsList.put("Destroyer", 2);
         return shipsList;
     }
