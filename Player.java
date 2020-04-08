@@ -17,6 +17,7 @@ public class Player {
         this.playerName = createPlayerName();
         this.shipsList = makeShipsList();
         this.playerBoard = createPlayerBoard();
+        this.shotsBoard = createShotsBoard();
     }
 
     public Map<String, Integer> makeShipsList() {
@@ -80,6 +81,17 @@ public class Player {
             }
         }
         return playerBoard;
+    }
+
+    public Ocean getShotsBoard(){
+        return this.shotsBoard;
+    }
+
+    private Ocean createShotsBoard(){
+        int oceanSize = 10;
+        Ocean shotsBoard = new Ocean(oceanSize);
+        System.out.println(shotsBoard);
+        return shotsBoard;
     }
 
 }
