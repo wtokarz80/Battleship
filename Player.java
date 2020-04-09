@@ -97,8 +97,9 @@ public class Player {
             boolean isOk = false;
             Ship newShip;
             while (!isOk) {
-                Common.clearScreen();
+                System.out.print(Colors.BLUE_BOLD);
                 System.out.println(playerBoard);
+                System.out.print(Colors.RESET);
                 System.out.printf("Set on the %s on your board, ship's length is %s\n", key, shipsList.get(key));
                 String orientation = Common
                         .getOrientation("Enter [h] for horizontal or [v] for vertical ship orientation.");
@@ -114,13 +115,18 @@ public class Player {
                     System.out.println("The ships must fit on board and may not touch each other.");
                 } else {
                     getPlayerShips().add(newShip);
+                    System.out.print(Colors.BLUE_BOLD);
+                    System.out.println(playerBoard);
+                    System.out.print(Colors.RESET);
                     isOk = true;
                 }
             }
         }
         Common.clearScreen();
         System.out.println("Your board " + playerName + "\n");
+        System.out.print(Colors.BLUE_BOLD);
         System.out.println(playerBoard);
+        System.out.print(Colors.RESET);
         System.out.println("Press enter to countinue.");
         Main.scan.next();
         Common.clearScreen();
@@ -150,7 +156,9 @@ public class Player {
 
             }
         }
+        System.out.print(Colors.BLUE_BOLD);
         System.out.println(playerBoard);
+        System.out.print(Colors.RESET);
         System.out.println("Press enter to countinue.");
         Main.scan.next();
         Common.clearScreen();
@@ -186,16 +194,21 @@ public class Player {
 
     public void displayScreen(String message) {
         Common.clearScreen();
+        System.out.print(Colors.RESET);
         System.out.println("NOW IS PLAYING :" + this.getPlayerName());
         System.out.println("TURN: " + this.getTurn());
         System.out.println("");
         String playerBoard = this.getPlayerBoard().toString();
         String hitsBoard = this.getBoardOfShots().toString();
         System.out.println("YOUR BOARD\n");
+        System.out.print(Colors.BLUE_BOLD);
         System.out.println(playerBoard);
+        System.out.print(Colors.RESET);
         System.out.println("");
         System.out.println("YOUR SHOTS\n");
+        System.out.print(Colors.BLUE_BOLD);
         System.out.println(hitsBoard);
+        System.out.print(Colors.RESET);
         System.out.println(message);
     }
 

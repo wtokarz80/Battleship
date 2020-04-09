@@ -25,7 +25,6 @@ public class Ocean {
                 allowedSquares.add(field);
             }
         }
-
         return oceanBoard;
     }
 
