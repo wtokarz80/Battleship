@@ -36,6 +36,10 @@ public class Player {
         return shipsList;
     }
 
+    public boolean getIsHuman() {
+        return this.isHuman;
+    }
+
     public void setPlayerName(String playerName) {
         this.playerName = playerName;
     }
@@ -59,6 +63,14 @@ public class Player {
 
     public Ocean getPlayerBoard() {
         return this.playerBoard;
+    }
+
+    public Ocean getBoardOfShots() {
+        return this.shotsBoard;
+    }
+
+    public void setBoardOfShots(Ocean board) {
+        this.shotsBoard = board;
     }
 
     public Ocean chooseBoard(){
@@ -144,5 +156,77 @@ public class Player {
     public void setTurn(int turn) {
         this.turn = turn;
     }
+
+    public boolean isShipSunk() {
+        for (Ship element : getPlayerShips()) {
+            int hitCounter = 0;
+            for (int i = 0; i < element.getListOfFields().size(); i++) {
+                if (element.getListOfFields().get(i).getStatus().equals("SHIP")) {
+                    break;
+                } else {
+                    hitCounter = hitCounter + 1;
+                    if (hitCounter == element.getLength()) {
+                        getPlayerShips().remove(element);
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public void displayScreen(String message) {
+        Common.clearScreen();
+        System.out.println("CURRENT PLAYER: " + this.getPlayerName());
+        System.out.println("CURRENT TURN: " + this.getTurn());
+        System.out.println("");
+        String playerBoard = this.getPlayerBoard().toString();
+        String hitsBoard = this.getBoardOfShots().toString();
+        System.out.println("YOUR SHIPS");
+        System.out.println(playerBoard);
+        System.out.println("_____________________\n");
+        System.out.println("BOARD OF SHOTS");
+        System.out.println(hitsBoard);
+        System.out.println(message);
+    }
+
+    public String playerGame(Player playerBeingShot) {
+        String userPosition = Common.getUserPosition("Take a shot, for example G4.");
+        char userLetter = userPosition.charAt(0);
+        int userNumber = Integer.parseInt(userPosition.substring(1));
+        int posY = Common.letterToNumber(userLetter) - 1;
+        int posX = userNumber - 1;
+        if (Common.isFieldAlreadyHit(this.getBoardOfShots().getOceanBoard()[posY][posX])) {
+            return "You have already struck that coordinats! You wasted a missle!";
+        }
+
+        if (Common.isFieldAShip(playerBeingShot.getPlayerBoard().getOceanBoard()[posY][posX])) {
+            playerBeingShot.getPlayerBoard().getOceanBoard()[posY][posX].setStatus("HIT");
+            this.getBoardOfShots().getOceanBoard()[posY][posX].setStatus("HIT");
+            String sunk = playerBeingShot.isShipSunk() ? " AND SUNK!" : "!";
+            return "YOU HIT" + sunk;
+        } else {
+            playerBeingShot.getPlayerBoard().getOceanBoard()[posY][posX].setStatus("MISSED");
+            this.getBoardOfShots().getOceanBoard()[posY][posX].setStatus("MISSED");
+            return "YOU MISSED!";
+        }
+    }
+
+    public void computerGame(Player playerBeingShot){
+        int posY = Common.getRandomNumber(10);
+        int posX = Common.getRandomNumber(10);
+        if (Common.isFieldAlreadyHit(this.getBoardOfShots().getOceanBoard()[posY][posX])) {
+        } else if (Common.isFieldAShip(playerBeingShot.getPlayerBoard().getOceanBoard()[posY][posX])) {
+            playerBeingShot.getPlayerBoard().getOceanBoard()[posY][posX].setStatus("HIT");
+            this.getBoardOfShots().getOceanBoard()[posY][posX].setStatus("HIT");
+            playerBeingShot.isShipSunk();
+        } else {
+            playerBeingShot.getPlayerBoard().getOceanBoard()[posY][posX].setStatus("MISSED");
+            this.getBoardOfShots().getOceanBoard()[posY][posX].setStatus("MISSED");
+        }
+
+    }
+
+
 
 }

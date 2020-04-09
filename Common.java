@@ -111,10 +111,16 @@ public class Common {
         }
         return counter;
     }
-    
+
     public static boolean isFieldAShip(Square field) {
         return field.getStatus().equals("SHIP");
     }
+
+    public static boolean isFieldAlreadyHit(Square field) {
+        return field.getStatus().equals("HIT") || field.getStatus().equals("MISSED");
+    }
+    
+
 
 
     

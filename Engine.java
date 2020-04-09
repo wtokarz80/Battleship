@@ -40,7 +40,7 @@ public class Engine {
             }
             switch (mode) {
                 case "pvc":
-                    pvcGame(getPlayerOne(), getPlayerTwo());
+                    pvcGame(currentPlayer, opponentPlayer);
                     break;
             }
             isAlive = Common.arePlayersAlive(currentPlayer, opponentPlayer);
@@ -59,11 +59,23 @@ public class Engine {
         // restartGame();
     }
 
-    public void pvcGame(Player player, Player computer) {
-        System.out.println("Let's play ;)");
-        Main.scan.next();
-        
-
+    public void pvcGame(Player currentPlayer, Player opponentPlayer) {
+        // System.out.println("Let's play ;)");
+        // Main.scan.next();
+        if(currentPlayer.getIsHuman() == true){
+            currentPlayer.displayScreen("");
+            String message = currentPlayer.playerGame(opponentPlayer);
+            currentPlayer.displayScreen(message);
+            System.out.println("Press enter to change player.");
+            Main.scan.next();
+        }
+        else{
+            Common.clearScreen();
+            System.out.println("\n\nComputer turn\n\n");
+            currentPlayer.computerGame(opponentPlayer);
+            System.out.println("Press enter to shoot.");
+            Main.scan.next();
+            Common.clearScreen();
+        }
     }
-
 }
