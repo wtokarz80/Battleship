@@ -18,6 +18,17 @@ public class Common {
         }
     }
 
+    public static void wait(int ms){
+        try
+        {
+            Thread.sleep(ms);
+        }
+        catch(InterruptedException ex)
+        {
+            Thread.currentThread().interrupt();
+        }
+    }
+
     public static int getUserIntChoice(){
         System.out.print("\nYour choice : ");
         Main.intChoice = Main.scan.nextInt();
