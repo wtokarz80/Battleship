@@ -124,7 +124,9 @@ public class Player {
         }
         Common.clearScreen();
         System.out.println("Your board " + playerName + "\n");
+        System.out.print(Colors.BLUE_BOLD);
         System.out.println(playerBoard);
+        System.out.print(Colors.RESET);
         System.out.println("Press enter to countinue.");
         Main.scan.next();
         Common.clearScreen();
@@ -154,7 +156,9 @@ public class Player {
 
             }
         }
+        System.out.print(Colors.BLUE_BOLD);
         System.out.println(playerBoard);
+        System.out.print(Colors.RESET);
         System.out.println("Press enter to countinue.");
         Main.scan.next();
         Common.clearScreen();
@@ -190,16 +194,21 @@ public class Player {
 
     public void displayScreen(String message) {
         Common.clearScreen();
+        System.out.print(Colors.RESET);
         System.out.println("NOW IS PLAYING :" + this.getPlayerName());
         System.out.println("TURN: " + this.getTurn());
         System.out.println("");
         String playerBoard = this.getPlayerBoard().toString();
         String hitsBoard = this.getBoardOfShots().toString();
         System.out.println("YOUR BOARD\n");
+        System.out.print(Colors.BLUE_BOLD);
         System.out.println(playerBoard);
+        System.out.print(Colors.RESET);
         System.out.println("");
         System.out.println("YOUR SHOTS\n");
+        System.out.print(Colors.BLUE_BOLD);
         System.out.println(hitsBoard);
+        System.out.print(Colors.RESET);
         System.out.println(message);
     }
 

@@ -62,7 +62,9 @@ public class Engine {
     public void pvcGame(Player currentPlayer, Player opponentPlayer) {
 
         if(currentPlayer.getIsHuman() == true){
+            System.out.print(Colors.BLUE_BOLD);
             currentPlayer.displayScreen("");
+            System.out.print(Colors.RESET);
             String message = currentPlayer.playerGame(opponentPlayer);
             currentPlayer.displayScreen(message);
             System.out.println("Press enter to change player.");
