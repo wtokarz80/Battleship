@@ -47,10 +47,8 @@ public class Engine {
             }
             isAlive = Common.arePlayersAlive(currentPlayer, opponentPlayer);
         }
-        System.out.print(Colors.BLUE_BOLD);
-        System.out.println(gamer.getShotsBoard());
-        System.out.print(Colors.RESET);
-        Common.wait(2000);
+        winGameScreen(currentPlayer, opponentPlayer);
+    }
 
     public void winGameScreen(Player player1, Player player2) {
         System.out.println("\n" + player1.getPlayerName() + " WINS!\n");
