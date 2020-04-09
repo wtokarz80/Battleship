@@ -72,7 +72,7 @@ public class Main {
 
     private static void cvcGame() {
         Engine newGame = new Engine(false, false);
-        newGame.startGame("pvc");
+        newGame.startGame("cvc");
         stringChoice = Common.getUserStringChoice("Do you want play again[y/n]");
         if (stringChoice.equalsIgnoreCase("y")) {
             keepGoing = true;
