@@ -41,8 +41,7 @@ public class Square {
 
     public String toString(){
         String hit = "\ud83d\udca5";
-        // String missed = " \u25E6";
-        String missed = "\ud83d\udd34";
+        String missed = "\ud83d\udd38";
         String water = "\ud83c\udf0a";
         String ship = "\ud83d\udea2";
         Map<String, String> squareView = new HashMap<>();
