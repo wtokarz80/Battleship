@@ -85,4 +85,16 @@ public class Display {
                         + "| 4 - Back to main menu    |\n"
                         + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
    }
+
+   public static void displayChoiceLevel(){
+      System.out.println("");
+      System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                        + "|       DIFFICULTY LEVEL       |\n"
+                        + "|------------------------------|\n"
+                        + "| 1 - Easy   <- available      |\n"
+                        + "| 2 - Normal <- in progress    |\n"
+                        + "| 3 - Hard   <- in progress    |\n"
+                        + "| 4 - Impossible <- awailable  |\n"
+                        + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+   }
 }

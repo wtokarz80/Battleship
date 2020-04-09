@@ -130,4 +130,29 @@ public class Common {
     public static boolean isFieldAlreadyHit(Square field) {
         return field.getStatus().equals("HIT") || field.getStatus().equals("MISSED");
     } 
+
+    public static String getChoiceMode(String title){
+        System.out.println(title + "\n");
+        String choice = "";
+        boolean isOk = false;
+        while(!isOk){
+            choice = Main.scan.next().toUpperCase();
+            if(choice.equalsIgnoreCase("R") || choice.equalsIgnoreCase("M")){
+                isOk = true;
+            }
+        }
+        return choice;
+    }
+
+    public static int getLevelChoice(){
+        int choice = 1;
+        boolean isOk = false;
+        while(!isOk){
+            choice = Main.scan.nextInt();
+            if(choice == 1 || choice == 2 || choice == 3 || choice == 4){
+                isOk = true;
+            }
+        }
+        return choice;
+    }
 }
