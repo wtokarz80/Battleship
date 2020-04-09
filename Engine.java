@@ -24,9 +24,13 @@ public class Engine {
     void shooting(Player gamer, Player opponent) {
         Common.clearScreen();
         System.out.println(String.format("~~~~|%s's board|~~~~", opponent.getPlayerName()));
+        System.out.print(Colors.BLUE_BOLD);
         System.out.println(gamer.getShotsBoard());
+        System.out.print(Colors.RESET);
         System.out.println("~~~~|yours board|~~~~");
+        System.out.print(Colors.BLUE_BOLD);
         System.out.println(gamer.getPlayerBoard());
+        System.out.print(Colors.RESET);
         System.out.println(String.format("now %s is shooting. Shoot! eg. G4", gamer.getPlayerName()));
         String userPosition = Common.getUserPosition("Enter shooting coordinates, for example G4.");
         char userLetter = userPosition.charAt(0);
@@ -43,7 +47,9 @@ public class Engine {
             Common.clearScreen();
             System.out.println("You have missed the ship");
         }
+        System.out.print(Colors.BLUE_BOLD);
         System.out.println(gamer.getShotsBoard());
+        System.out.print(Colors.RESET);
         Common.wait(2000);
 
     }
