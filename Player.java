@@ -8,16 +8,24 @@ public class Player {
     private String playerName;
     private Ocean playerBoard;
     private Ocean shotsBoard;
-    private boolean turn;
+    private int turn;
     private List<Ship> playerShips;
     private boolean isHuman;
 
     Player(boolean isHuman) {
         this.isHuman = isHuman;
-        this.playerName = createPlayerName();
         this.shipsList = makeShipsList();
-        this.playerBoard = createPlayerBoard();
-        this.shotsBoard = createShotsBoard();
+        this.shotsBoard = new Ocean(10);
+        this.turn = 0;
+        if (isHuman) {
+            this.playerName = createPlayerName();
+            this.playerBoard = chooseBoard();
+        }
+        else{
+            this.playerName = "Computer";
+            this.playerBoard = createComputerBoard();
+        }
+
     }
 
     public Map<String, Integer> makeShipsList() {
@@ -27,6 +35,10 @@ public class Player {
    //     shipsList.put("Cruiser", 3);
         shipsList.put("Destroyer", 2);
         return shipsList;
+    }
+
+    public boolean getIsHuman() {
+        return this.isHuman;
     }
 
     public void setPlayerName(String playerName) {
@@ -45,9 +57,32 @@ public class Player {
         playerName = Common.getUserStringChoice("Enter your name: " + "\n");
         return playerName;
     }
+    public String createComputerName() {
+        playerName = Common.getUserStringChoice("Enter computer name: " + "\n");
+        return playerName;
+    }
 
-    public Ocean getPlayerBoard(){
+    public Ocean getPlayerBoard() {
         return this.playerBoard;
+    }
+
+    public Ocean getBoardOfShots() {
+        return this.shotsBoard;
+    }
+
+    public void setBoardOfShots(Ocean board) {
+        this.shotsBoard = board;
+    }
+
+    public Ocean chooseBoard(){
+        System.out.println("Set ships on the board\n");
+        String choice = Common.getChoiceBoard("Enter [r] for random ships set or [m] for manual ships set.");
+        if(choice.equalsIgnoreCase("R")){
+            return createComputerBoard();
+        }
+        else{
+            return createPlayerBoard();
+        }
     }
 
     private Ocean createPlayerBoard() {
@@ -75,13 +110,127 @@ public class Player {
                     System.out.println("The ships must fit on board and may not touch each other.");
                 } else {
                     getPlayerShips().add(newShip);
-                    System.out.println(playerBoard);
                     isOk = true;
                 }
             }
         }
+        System.out.println(playerBoard);
+        System.out.println("Press enter to countinue.");
+        Main.scan.next();
+        Common.clearScreen();
         return playerBoard;
     }
+
+    private Ocean createComputerBoard() {
+        int oceanSize = 10;
+        playerShips = new ArrayList<>();
+        System.out.println("Hello " + playerName + "\n");
+        Ocean playerBoard = new Ocean(oceanSize);
+        for (String key : shipsList.keySet()) {
+            boolean isOk = false;
+            Ship newShip;
+            while (!isOk) {
+                String computerOrientation = Common.getRandomNumber(10) < 5 ? "H" : "V";
+                int posY = Common.getRandomNumber(10);
+                int posX = Common.getRandomNumber(10);
+                int length = shipsList.get(key);
+                newShip = new Ship(length, computerOrientation, posX, posY, key);
+                boolean keepGoing = playerBoard.matchTable(newShip);
+                if (keepGoing) {
+                    getPlayerShips().add(newShip);
+                    isOk = true;
+                }
+
+            }
+        }
+        System.out.println(playerBoard);
+        System.out.println("Press enter to countinue.");
+        Main.scan.next();
+        Common.clearScreen();
+        return playerBoard;
+    }
+
+
+    public int getTurn() {
+        return this.turn;
+    }
+
+    public void setTurn(int turn) {
+        this.turn = turn;
+    }
+
+    public boolean isShipSunk() {
+        for (Ship element : getPlayerShips()) {
+            int hitCounter = 0;
+            for (int i = 0; i < element.getListOfFields().size(); i++) {
+                if (element.getListOfFields().get(i).getStatus().equals("SHIP")) {
+                    break;
+                } else {
+                    hitCounter = hitCounter + 1;
+                    if (hitCounter == element.getLength()) {
+                        getPlayerShips().remove(element);
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public void displayScreen(String message) {
+        Common.clearScreen();
+        System.out.println("CURRENT PLAYER: " + this.getPlayerName());
+        System.out.println("CURRENT TURN: " + this.getTurn());
+        System.out.println("");
+        String playerBoard = this.getPlayerBoard().toString();
+        String hitsBoard = this.getBoardOfShots().toString();
+        System.out.println("YOUR SHIPS");
+        System.out.println(playerBoard);
+        System.out.println("_____________________\n");
+        System.out.println("BOARD OF SHOTS");
+        System.out.println(hitsBoard);
+        System.out.println(message);
+    }
+
+    public String playerGame(Player playerBeingShot) {
+        String userPosition = Common.getUserPosition("Take a shot, for example G4.");
+        char userLetter = userPosition.charAt(0);
+        int userNumber = Integer.parseInt(userPosition.substring(1));
+        int posY = Common.letterToNumber(userLetter) - 1;
+        int posX = userNumber - 1;
+        if (Common.isFieldAlreadyHit(this.getBoardOfShots().getOceanBoard()[posY][posX])) {
+            return "You have already struck that coordinats! You wasted a missle!";
+        }
+
+        if (Common.isFieldAShip(playerBeingShot.getPlayerBoard().getOceanBoard()[posY][posX])) {
+            playerBeingShot.getPlayerBoard().getOceanBoard()[posY][posX].setStatus("HIT");
+            this.getBoardOfShots().getOceanBoard()[posY][posX].setStatus("HIT");
+            String sunk = playerBeingShot.isShipSunk() ? " AND SUNK!" : "!";
+            return "YOU HIT" + sunk;
+        } else {
+            playerBeingShot.getPlayerBoard().getOceanBoard()[posY][posX].setStatus("MISSED");
+            this.getBoardOfShots().getOceanBoard()[posY][posX].setStatus("MISSED");
+            return "YOU MISSED!";
+        }
+    }
+
+    public void computerGame(Player playerBeingShot){
+        int posY = Common.getRandomNumber(10);
+        int posX = Common.getRandomNumber(10);
+        if (Common.isFieldAlreadyHit(this.getBoardOfShots().getOceanBoard()[posY][posX])) {
+        } else if (Common.isFieldAShip(playerBeingShot.getPlayerBoard().getOceanBoard()[posY][posX])) {
+            playerBeingShot.getPlayerBoard().getOceanBoard()[posY][posX].setStatus("HIT");
+            this.getBoardOfShots().getOceanBoard()[posY][posX].setStatus("HIT");
+            playerBeingShot.isShipSunk();
+        } else {
+            playerBeingShot.getPlayerBoard().getOceanBoard()[posY][posX].setStatus("MISSED");
+            this.getBoardOfShots().getOceanBoard()[posY][posX].setStatus("MISSED");
+        }
+
+    }
+
+
+
 
     public Ocean getShotsBoard(){
         return this.shotsBoard;
@@ -93,5 +242,6 @@ public class Player {
         System.out.println(shotsBoard);
         return shotsBoard;
     }
+
 
 }

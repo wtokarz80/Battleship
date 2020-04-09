@@ -1,6 +1,7 @@
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class Common {
 
@@ -54,6 +55,19 @@ public class Common {
         return orientation;
     }
 
+    public static String getChoiceBoard(String title){
+        System.out.println(title + "\n");
+        String choice = "";
+        boolean isOk = false;
+        while(!isOk){
+            choice = Main.scan.next().toUpperCase();
+            if(choice.equalsIgnoreCase("R") || choice.equalsIgnoreCase("M")){
+                isOk = true;
+            }
+        }
+        return choice;
+    }
+
     public static String getUserPosition(String title){
         System.out.println(title);
         String userInput = "";
@@ -79,5 +93,46 @@ public class Common {
         int number = Integer.parseInt(lettersToNums.get(letter));
         return number;
     }
+
+    public static void changeScreens() {
+        clearScreen();
+        System.out.println("Press enter to countinue.");
+        Main.scan.next();
+        clearScreen();
+    }
+
+    public static int getRandomNumber(int range) {
+        Random r = new Random();
+        int number = r.nextInt(range);
+        return number;
+    }
+
+    public static boolean arePlayersAlive(Player player1, Player player2) {
+        int counterPlayer1 = countShipSquares(player1);
+        int counterPlayer2 = countShipSquares(player2);
+        return (counterPlayer1 > 0 && counterPlayer2 > 0);
+    }
+
+    private static int countShipSquares(Player player) {
+        int counter = 0;
+        for (Square element : player.getPlayerBoard().getShipSquaresList()) {
+            if (isFieldAShip(element)) {
+                counter++;
+            }
+        }
+        return counter;
+    }
+
+    public static boolean isFieldAShip(Square field) {
+        return field.getStatus().equals("SHIP");
+    }
+
+    public static boolean isFieldAlreadyHit(Square field) {
+        return field.getStatus().equals("HIT") || field.getStatus().equals("MISSED");
+    }
+    
+
+
+
     
 }
