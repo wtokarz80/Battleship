@@ -11,12 +11,12 @@ public class Display {
     System.out.println(" WELCOME TO : ");
     int width = 100;
     int height = 30;
-    System.out.print(Colors.YELLOW);
+    System.out.print(Colors.RED_BOLD);
 
     //BufferedImage image = ImageIO.read(new File("/Users/mkyong/Desktop/logo.jpg"));
     BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
     Graphics g = image.getGraphics();
-    g.setFont(new Font("SansSerif", Font.HANGING_BASELINE, 14));
+    g.setFont(new Font("SansSerif", Font.HANGING_BASELINE, 12));
 
     Graphics2D graphics = (Graphics2D) g;
     graphics.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
