@@ -51,6 +51,7 @@ public class Engine {
     }
 
     public void winGameScreen(Player player1, Player player2) {
+        Common.clearScreen();
         System.out.println("\n" + player1.getPlayerName() + " WINS!\n");
         System.out.println(player1.getPlayerName() + "'S BOARD");
         System.out.println(player1.getPlayerBoard().toString());
