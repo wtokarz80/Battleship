@@ -25,13 +25,14 @@ public class Player {
             this.playerName = "Computer";
             this.playerBoard = createComputerBoard();
         }
+
     }
 
     public Map<String, Integer> makeShipsList() {
         shipsList = new HashMap<>();
-        shipsList.put("Carrier", 5);
-        shipsList.put("Battleship", 4);
-        shipsList.put("Cruiser", 3);
+   //     shipsList.put("Carrier", 5);
+   //     shipsList.put("Battleship", 4);
+   //     shipsList.put("Cruiser", 3);
         shipsList.put("Destroyer", 2);
         return shipsList;
     }
@@ -149,6 +150,7 @@ public class Player {
         return playerBoard;
     }
 
+
     public int getTurn() {
         return this.turn;
     }
@@ -227,6 +229,19 @@ public class Player {
 
     }
 
+
+
+
+    public Ocean getShotsBoard(){
+        return this.shotsBoard;
+    }
+
+    private Ocean createShotsBoard(){
+        int oceanSize = 10;
+        Ocean shotsBoard = new Ocean(oceanSize);
+        System.out.println(shotsBoard);
+        return shotsBoard;
+    }
 
 
 }

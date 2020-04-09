@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class Engine {
     private Player player1;
@@ -19,6 +20,7 @@ public class Engine {
     public Player getPlayerTwo() {
         return this.player2;
     }
+
 
     public void startGame(String mode) {
         boolean isAlive = true;
@@ -77,5 +79,47 @@ public class Engine {
             Main.scan.next();
             Common.clearScreen();
         }
+
+    void shooting(Player gamer, Player opponent) {
+        Common.clearScreen();
+        System.out.println(String.format("~~~~|%s's board|~~~~", opponent.getPlayerName()));
+        System.out.println(gamer.getShotsBoard());
+        System.out.println("~~~~|yours board|~~~~");
+        System.out.println(gamer.getPlayerBoard());
+        System.out.println(String.format("now %s is shooting. Shoot! eg. G4", gamer.getPlayerName()));
+        String userPosition = Common.getUserPosition("Enter shooting coordinates, for example G4.");
+        char userLetter = userPosition.charAt(0);
+        int userNumber = Integer.parseInt(userPosition.substring(1));
+        int posY = Common.letterToNumber(userLetter) - 1;
+        int posX = userNumber - 1;
+        if (opponent.getPlayerBoard().getSquare(posY, posX).getStatus() == "SHIP") {
+            gamer.getShotsBoard().getSquare(posY, posX).setStatus("HIT");
+            Common.clearScreen();
+            System.out.println("You have shot the enemy!");
+
+        } else {
+            gamer.getShotsBoard().getSquare(posY, posX).setStatus("MISSED");
+            Common.clearScreen();
+            System.out.println("You have missed the ship");
+        }
+        System.out.println(gamer.getShotsBoard());
+        Common.wait(2000);
+
+    }
+
+
+    boolean isWinning (Player winner){
+        int shooted = 0;
+        for (int i = 0; i<10; i++){
+            for (int j = 0; j<10; j++){
+                if (winner.getShotsBoard().getSquare(i, j).getStatus() == "HIT"){
+                    shooted++;
+                }
+            }
+        }
+        if (shooted == 2) {
+            System.out.println(String.format("the winner is: %s", winner.getPlayerName()));}
+             return (shooted == 2);
+
     }
 }
