@@ -97,8 +97,9 @@ public class Player {
             boolean isOk = false;
             Ship newShip;
             while (!isOk) {
-                Common.clearScreen();
+                System.out.print(Colors.BLUE_BOLD);
                 System.out.println(playerBoard);
+                System.out.print(Colors.RESET);
                 System.out.printf("Set on the %s on your board, ship's length is %s\n", key, shipsList.get(key));
                 String orientation = Common
                         .getOrientation("Enter [h] for horizontal or [v] for vertical ship orientation.");
@@ -114,6 +115,9 @@ public class Player {
                     System.out.println("The ships must fit on board and may not touch each other.");
                 } else {
                     getPlayerShips().add(newShip);
+                    System.out.print(Colors.BLUE_BOLD);
+                    System.out.println(playerBoard);
+                    System.out.print(Colors.RESET);
                     isOk = true;
                 }
             }
