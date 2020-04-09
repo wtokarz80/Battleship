@@ -53,10 +53,14 @@ public class Engine {
     public void winGameScreen(Player player1, Player player2) {
         System.out.println("\n" + player1.getPlayerName() + " WINS!\n");
         System.out.println(player1.getPlayerName() + "'S BOARD");
+        System.out.print(Colors.BLUE_BOLD);
         System.out.println(player1.getPlayerBoard().toString());
+        System.out.print(Colors.RESET);
         System.out.println("");
         System.out.println(player2.getPlayerName() + "'S BOARD");
+        System.out.print(Colors.BLUE_BOLD);
         System.out.println(player2.getPlayerBoard().toString());
+        System.out.print(Colors.RESET);
     }
 
     public void pvcGame(Player currentPlayer, Player opponentPlayer) {
