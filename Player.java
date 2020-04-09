@@ -8,7 +8,7 @@ public class Player {
     private String playerName;
     private Ocean playerBoard;
     private Ocean shotsBoard;
-    private boolean turn;
+    private int turn;
     private List<Ship> playerShips;
     private boolean isHuman;
 
@@ -16,12 +16,13 @@ public class Player {
         this.isHuman = isHuman;
         this.shipsList = makeShipsList();
         this.shotsBoard = new Ocean(10);
+        this.turn = 0;
         if (isHuman) {
             this.playerName = createPlayerName();
             this.playerBoard = chooseBoard();
         }
         else{
-            this.playerName = createComputerName();
+            this.playerName = "Computer";
             this.playerBoard = createComputerBoard();
         }
     }
@@ -61,6 +62,7 @@ public class Player {
     }
 
     public Ocean chooseBoard(){
+        System.out.println("Set ships on the board\n");
         String choice = Common.getChoiceBoard("Enter [r] for random ships set or [m] for manual ships set.");
         if(choice.equalsIgnoreCase("R")){
             return createComputerBoard();
@@ -133,6 +135,14 @@ public class Player {
         Main.scan.next();
         Common.clearScreen();
         return playerBoard;
+    }
+
+    public int getTurn() {
+        return this.turn;
+    }
+
+    public void setTurn(int turn) {
+        this.turn = turn;
     }
 
 }

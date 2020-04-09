@@ -17,6 +17,7 @@ public class Ocean {
 
     public Square[][] createOceanBoard(int oceanSize) {
         oceanBoard = new Square[oceanSize][oceanSize];
+        shipSquaresList = new ArrayList<>();
         for (int i = 0; i < oceanSize; i++) {
             for (int j = 0; j < oceanSize; j++) {
                 Square field = new Square(i, j);
@@ -36,6 +37,15 @@ public class Ocean {
         return this.getOceanBoard()[posY][posX];
     }
 
+    public void addToShipSquares(Square field) {
+        this.shipSquaresList.add(field);
+    }
+
+    public List<Square> getShipSquaresList() {
+        return this.shipSquaresList;
+    }
+
+
     public boolean matchTable(Ship newShip) {
         if (newShip.getOrientation().equals("H")) {
             if (newShip.getPosX() + newShip.getLength() <= oceanSize && isAllowed(newShip, "H")) {
@@ -43,6 +53,7 @@ public class Ocean {
                     getOceanBoard()[newShip.getPosY()][i].setStatus("SHIP");
                     Square field = getSquare(newShip.getPosY(), i);
                     newShip.addSquareToList(field);
+                    addToShipSquares(field);
                     allowedSquares = removeSquares(allowedSquares, newShip);
                 }
                 return true;
@@ -54,6 +65,7 @@ public class Ocean {
                     getOceanBoard()[i][newShip.getPosX()].setStatus("SHIP");
                     Square field = getSquare(i, newShip.getPosX());
                     newShip.addSquareToList(field);
+                    addToShipSquares(field);
                     allowedSquares = removeSquares(allowedSquares, newShip);
                 }
                 return true;
@@ -78,8 +90,7 @@ public class Ocean {
                     }
                 }
             }
-        }
-        
+        }      
         return allowedSquares;
     }
 

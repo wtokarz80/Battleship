@@ -95,5 +95,27 @@ public class Common {
         int number = r.nextInt(range);
         return number;
     }
+
+    public static boolean arePlayersAlive(Player player1, Player player2) {
+        int counterPlayer1 = countShipSquares(player1);
+        int counterPlayer2 = countShipSquares(player2);
+        return (counterPlayer1 > 0 && counterPlayer2 > 0);
+    }
+
+    private static int countShipSquares(Player player) {
+        int counter = 0;
+        for (Square element : player.getPlayerBoard().getShipSquaresList()) {
+            if (isFieldAShip(element)) {
+                counter++;
+            }
+        }
+        return counter;
+    }
+    
+    public static boolean isFieldAShip(Square field) {
+        return field.getStatus().equals("SHIP");
+    }
+
+
     
 }
