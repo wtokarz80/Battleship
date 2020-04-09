@@ -236,19 +236,4 @@ public class Player {
 
     }
 
-
-
-
-    public Ocean getShotsBoard(){
-        return this.shotsBoard;
-    }
-
-    private Ocean createShotsBoard(){
-        int oceanSize = 10;
-        Ocean shotsBoard = new Ocean(oceanSize);
-        System.out.println(shotsBoard);
-        return shotsBoard;
-    }
-
-
 }

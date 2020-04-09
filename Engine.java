@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Map;
 
 
 public class Engine {
@@ -42,7 +41,13 @@ public class Engine {
             }
             switch (mode) {
                 case "pvc":
-                    pvcGame(currentPlayer, opponentPlayer);
+                    theGame(currentPlayer, opponentPlayer, 0);
+                    break;
+                case "pvp":
+                    theGame(currentPlayer, opponentPlayer, 0);
+                    break;
+                case "cvc":
+                    theGame(currentPlayer, opponentPlayer, 500);
                     break;
             }
             isAlive = Common.arePlayersAlive(currentPlayer, opponentPlayer);
@@ -59,7 +64,7 @@ public class Engine {
         System.out.println(player2.getPlayerBoard().toString());
     }
 
-    public void pvcGame(Player currentPlayer, Player opponentPlayer) {
+    public void theGame(Player currentPlayer, Player opponentPlayer, int waitTime) {
 
         if(currentPlayer.getIsHuman() == true){
             currentPlayer.displayScreen("");
@@ -70,27 +75,13 @@ public class Engine {
         }
         else{
             Common.clearScreen();
+            currentPlayer.displayScreen("");
             System.out.println("\n\nComputer turn\n\n");
             currentPlayer.computerGame(opponentPlayer);
-            System.out.println("Press enter to shoot.");
-            Main.scan.next();
+            System.out.println("BOOM! Computer has shot!");
+            Common.wait(waitTime);
             Common.clearScreen();
         }
     }
 
-
-    boolean isWinning (Player winner){
-        int shooted = 0;
-        for (int i = 0; i<10; i++){
-            for (int j = 0; j<10; j++){
-                if (winner.getShotsBoard().getSquare(i, j).getStatus() == "HIT"){
-                    shooted++;
-                }
-            }
-        }
-        if (shooted == 2) {
-            System.out.println(String.format("the winner is: %s", winner.getPlayerName()));}
-             return (shooted == 2);
-
-    }
 }

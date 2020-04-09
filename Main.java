@@ -50,7 +50,7 @@ public class Main {
 
     public static void pvpGame() {
         Engine newGame = new Engine(true, true);
-        newGame.startGame("pvc");
+        newGame.startGame("pvp");
         stringChoice = Common.getUserStringChoice("Do you want play again[y/n]");
         if (stringChoice.equalsIgnoreCase("y")) {
             keepGoing = true;
@@ -71,7 +71,8 @@ public class Main {
     }
 
     private static void cvcGame() {
-        System.out.println("\n\nCVC Game is in progress.\n\n");
+        Engine newGame = new Engine(false, false);
+        newGame.startGame("pvc");
         stringChoice = Common.getUserStringChoice("Do you want play again[y/n]");
         if (stringChoice.equalsIgnoreCase("y")) {
             keepGoing = true;
