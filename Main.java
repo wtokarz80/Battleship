@@ -32,6 +32,7 @@ public class Main {
     }
 
     private static void newGame() {
+        Common.clearScreen();
         Display.displayNewGame();
         intChoice = Common.getUserIntChoice();
         runUserSubmenuChoice(intChoice);
@@ -70,9 +71,7 @@ public class Main {
     }
 
     private static void cvcGame() {
-        System.out.println("CVC Game");
-        Ocean board = new Ocean(10);
-        System.out.println(board);
+        System.out.println("\n\nCVC Game is in progress.\n\n");
         stringChoice = Common.getUserStringChoice("Do you want play again[y/n]");
         if (stringChoice.equalsIgnoreCase("y")) {
             keepGoing = true;

@@ -129,10 +129,5 @@ public class Common {
 
     public static boolean isFieldAlreadyHit(Square field) {
         return field.getStatus().equals("HIT") || field.getStatus().equals("MISSED");
-    }
-    
-
-
-
-    
+    } 
 }

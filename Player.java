@@ -54,6 +54,7 @@ public class Player {
     }
 
     public String createPlayerName() {
+        Common.clearScreen();
         playerName = Common.getUserStringChoice("Enter your name: " + "\n");
         return playerName;
     }
@@ -75,6 +76,7 @@ public class Player {
     }
 
     public Ocean chooseBoard(){
+        Common.clearScreen();
         System.out.println("Set ships on the board\n");
         String choice = Common.getChoiceBoard("Enter [r] for random ships set or [m] for manual ships set.");
         if(choice.equalsIgnoreCase("R")){
@@ -91,9 +93,11 @@ public class Player {
         System.out.println("Hello " + playerName + "\n");
         Ocean playerBoard = new Ocean(oceanSize);
         for (String key : shipsList.keySet()) {
+            Common.clearScreen();
             boolean isOk = false;
             Ship newShip;
             while (!isOk) {
+                Common.clearScreen();
                 System.out.println(playerBoard);
                 System.out.printf("Set on the %s on your board, ship's length is %s\n", key, shipsList.get(key));
                 String orientation = Common
@@ -114,6 +118,8 @@ public class Player {
                 }
             }
         }
+        Common.clearScreen();
+        System.out.println("Your board " + playerName + "\n");
         System.out.println(playerBoard);
         System.out.println("Press enter to countinue.");
         Main.scan.next();
@@ -124,7 +130,8 @@ public class Player {
     private Ocean createComputerBoard() {
         int oceanSize = 10;
         playerShips = new ArrayList<>();
-        System.out.println("Hello " + playerName + "\n");
+        Common.clearScreen();
+        System.out.println("Your board " + playerName + "\n");
         Ocean playerBoard = new Ocean(oceanSize);
         for (String key : shipsList.keySet()) {
             boolean isOk = false;
@@ -179,15 +186,15 @@ public class Player {
 
     public void displayScreen(String message) {
         Common.clearScreen();
-        System.out.println("CURRENT PLAYER: " + this.getPlayerName());
-        System.out.println("CURRENT TURN: " + this.getTurn());
+        System.out.println("NOW IS PLAYING :" + this.getPlayerName());
+        System.out.println("TURN: " + this.getTurn());
         System.out.println("");
         String playerBoard = this.getPlayerBoard().toString();
         String hitsBoard = this.getBoardOfShots().toString();
-        System.out.println("YOUR SHIPS");
+        System.out.println("YOUR BOARD\n");
         System.out.println(playerBoard);
-        System.out.println("_____________________\n");
-        System.out.println("BOARD OF SHOTS");
+        System.out.println("");
+        System.out.println("YOUR SHOTS\n");
         System.out.println(hitsBoard);
         System.out.println(message);
     }
@@ -199,7 +206,7 @@ public class Player {
         int posY = Common.letterToNumber(userLetter) - 1;
         int posX = userNumber - 1;
         if (Common.isFieldAlreadyHit(this.getBoardOfShots().getOceanBoard()[posY][posX])) {
-            return "You have already struck that coordinats! You wasted a missle!";
+            return "You have already shot there!";
         }
 
         if (Common.isFieldAShip(playerBeingShot.getPlayerBoard().getOceanBoard()[posY][posX])) {

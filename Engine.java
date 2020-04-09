@@ -52,18 +52,15 @@ public class Engine {
 
     public void winGameScreen(Player player1, Player player2) {
         System.out.println("\n" + player1.getPlayerName() + " WINS!\n");
-        // System.out.println(player1.getPlayerName() + "SCORE IS " + player1.calculateHighScore() + "\n");
         System.out.println(player1.getPlayerName() + "'S BOARD");
         System.out.println(player1.getPlayerBoard().toString());
         System.out.println("");
         System.out.println(player2.getPlayerName() + "'S BOARD");
         System.out.println(player2.getPlayerBoard().toString());
-        // restartGame();
     }
 
     public void pvcGame(Player currentPlayer, Player opponentPlayer) {
-        // System.out.println("Let's play ;)");
-        // Main.scan.next();
+
         if(currentPlayer.getIsHuman() == true){
             currentPlayer.displayScreen("");
             String message = currentPlayer.playerGame(opponentPlayer);
